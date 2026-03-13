@@ -65,9 +65,10 @@ export default function App() {
     }
 
     const recognition = new SpeechRecognition();
-    recognition.continuous = true;
+    recognition.continuous = false;
     recognition.interimResults = true;
     recognition.lang = "en-US";
+    recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
       setIsListening(true);
@@ -77,20 +78,21 @@ export default function App() {
     recognition.onresult = (event) => {
       let interim = "";
       let finalChunk = "";
-      for (let i = event.resultIndex; i < event.results.length; i++) {
+      for (let i = 0; i < event.results.length; i++) {
         const t = event.results[i][0].transcript;
-        if (event.results[i].isFinal) finalChunk += t + " ";
+        if (event.results[i].isFinal) finalChunk += t;
         else interim += t;
       }
       if (finalChunk) {
-        finalTranscriptRef.current += finalChunk;
-        setRawText(finalTranscriptRef.current);
+        const newText = (finalTranscriptRef.current + " " + finalChunk).trim();
+        finalTranscriptRef.current = newText;
+        setRawText(newText);
       }
       setInterimText(interim);
     };
 
     recognition.onerror = (e) => {
-      if (e.error !== "aborted") setError(`Mic error: ${e.error}`);
+      if (e.error !== "aborted" && e.error !== "no-speech") setError(`Mic error: ${e.error}`);
       stopListening();
     };
 
@@ -254,7 +256,7 @@ export default function App() {
           color: isListening ? "#c8a96e" : "#a09070",
           fontFamily: "'Courier New', monospace", textTransform: "uppercase",
         }}>
-          {isListening ? "● Recording..." : "Tap to speak"}
+          {isListening ? "● Listening..." : rawText ? "Tap to add more" : "Tap to speak"}
         </div>
       </div>
 
