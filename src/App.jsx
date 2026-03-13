@@ -76,16 +76,20 @@ export default function App() {
     };
 
     recognition.onresult = (event) => {
+      let finalText = "";
       let interim = "";
-      // Only process NEW results since last event using resultIndex
-      for (let i = event.resultIndex; i < event.results.length; i++) {
+      // Rebuild entire transcript from scratch every event — fixes Android duplication bug
+      for (let i = 0; i < event.results.length; i++) {
         const t = event.results[i][0].transcript;
         if (event.results[i].isFinal) {
-          finalTranscriptRef.current = (finalTranscriptRef.current + " " + t).trim();
-          setRawText(finalTranscriptRef.current);
+          finalText += t + " ";
         } else {
           interim += t;
         }
+      }
+      if (finalText) {
+        finalTranscriptRef.current = finalText.trim();
+        setRawText(finalTranscriptRef.current);
       }
       setInterimText(interim);
     };
