@@ -167,13 +167,13 @@ export default function App() {
   return (
     <div style={{
       minHeight: "100vh",
-      background: "#0a0a0f",
+      background: "#1a1a20",
       fontFamily: "'Georgia', 'Times New Roman', serif",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       padding: "36px 20px 60px",
-      color: "#e8e0d0",
+      color: "#f0ebe0",
     }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "32px" }}>
@@ -186,7 +186,7 @@ export default function App() {
           margin: 0, fontSize: "clamp(26px, 7vw, 40px)",
           fontWeight: 400, letterSpacing: "-0.02em", color: "#f0ebe0",
         }}>Speak. Send.</h1>
-        <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#7a7060", fontStyle: "italic" }}>
+        <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#a09878", fontStyle: "italic" }}>
           Voice → AI polish → Ready to send
         </p>
       </div>
@@ -194,14 +194,14 @@ export default function App() {
       {/* Mode Toggle */}
       <div style={{
         display: "flex", marginBottom: "28px",
-        border: "1px solid #2a2820", borderRadius: "6px", overflow: "hidden",
+        border: "1px solid #555040", borderRadius: "6px", overflow: "hidden",
       }}>
         {["email", "text"].map(m => (
           <button key={m} onClick={() => { setMode(m); setPolishedText(""); }}
             style={{
               padding: "11px 30px",
               background: mode === m ? "#c8a96e" : "transparent",
-              color: mode === m ? "#0a0a0f" : "#7a7060",
+              color: mode === m ? "#0a0a0f" : "#b0a888",
               border: "none", cursor: "pointer",
               fontSize: "12px", letterSpacing: "0.12em",
               textTransform: "uppercase",
@@ -236,10 +236,10 @@ export default function App() {
           onClick={isListening ? stopListening : startListening}
           style={{
             width: "82px", height: "82px", borderRadius: "50%",
-            border: `2px solid ${isListening ? "#c8a96e" : "#2a2820"}`,
+            border: `2px solid ${isListening ? "#c8a96e" : "#666050"}`,
             background: isListening
               ? "radial-gradient(circle, #c8a96e22, #c8a96e08)"
-              : "#141410",
+              : "#2a2820",
             cursor: "pointer", fontSize: "30px",
             display: "flex", alignItems: "center", justifyContent: "center",
             boxShadow: isListening ? "0 0 32px #c8a96e55" : "none",
@@ -251,7 +251,7 @@ export default function App() {
 
         <div style={{
           marginTop: "10px", fontSize: "11px", letterSpacing: "0.15em",
-          color: isListening ? "#c8a96e" : "#5a5040",
+          color: isListening ? "#c8a96e" : "#a09070",
           fontFamily: "'Courier New', monospace", textTransform: "uppercase",
         }}>
           {isListening ? "● Recording..." : "Tap to speak"}
@@ -261,16 +261,16 @@ export default function App() {
       {/* Transcript */}
       <div style={{
         width: "100%", maxWidth: "520px",
-        background: "#0f0f13", border: "1px solid #1e1c18",
+        background: "#22222a", border: "1px solid #444038",
         borderRadius: "8px", padding: "18px", marginBottom: "16px", minHeight: "90px",
       }}>
         <div style={{
-          fontSize: "9px", letterSpacing: "0.25em", color: "#5a5040",
+          fontSize: "9px", letterSpacing: "0.25em", color: "#9a9080",
           textTransform: "uppercase", fontFamily: "'Courier New', monospace", marginBottom: "10px",
         }}>Raw Transcript</div>
         <div style={{
           fontSize: "15px", lineHeight: "1.7",
-          color: rawText ? "#c8c0b0" : "#3a3828",
+          color: rawText ? "#f0ebe0" : "#706858",
           fontStyle: rawText ? "normal" : "italic",
         }}>
           {rawText || "Your spoken words appear here..."}
@@ -285,8 +285,8 @@ export default function App() {
           disabled={!hasContent || isProcessing || isListening}
           style={{
             flex: 1, padding: "14px",
-            background: hasContent && !isProcessing && !isListening ? "#c8a96e" : "#1a1814",
-            color: hasContent && !isProcessing && !isListening ? "#0a0a0f" : "#3a3828",
+            background: hasContent && !isProcessing && !isListening ? "#c8a96e" : "#2e2c26",
+            color: hasContent && !isProcessing && !isListening ? "#0a0a0f" : "#706858",
             border: "none", borderRadius: "6px",
             fontSize: "12px", letterSpacing: "0.1em", textTransform: "uppercase",
             fontFamily: "'Courier New', monospace", fontWeight: 700,
@@ -297,8 +297,8 @@ export default function App() {
           {isProcessing ? "✦ Polishing..." : `✦ Polish as ${mode}`}
         </button>
         <button onClick={reset} style={{
-          padding: "14px 18px", background: "transparent", color: "#5a5040",
-          border: "1px solid #2a2820", borderRadius: "6px",
+          padding: "14px 18px", background: "transparent", color: "#a09070",
+          border: "1px solid #555040", borderRadius: "6px",
           fontSize: "12px", cursor: "pointer", letterSpacing: "0.1em",
           textTransform: "uppercase", fontFamily: "'Courier New', monospace",
           WebkitTapHighlightColor: "transparent",
@@ -309,7 +309,7 @@ export default function App() {
       {(isProcessing || polishedText) && (
         <div style={{
           width: "100%", maxWidth: "520px",
-          background: "#0d0f0a", border: "1px solid #2a3020",
+          background: "#1a2015", border: "1px solid #3a5025",
           borderRadius: "8px", padding: "18px", marginBottom: "14px",
         }}>
           <div style={{
